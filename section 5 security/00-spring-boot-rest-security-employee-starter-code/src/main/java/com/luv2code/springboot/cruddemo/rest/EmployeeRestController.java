@@ -43,6 +43,7 @@ public class EmployeeRestController {
     @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee theEmployee) {
 
+        System.out.println("add employee called");
         // also just in case they pass an id in JSON ... set id to 0
         // this is to force a save of new item ... instead of update
 
@@ -55,9 +56,11 @@ public class EmployeeRestController {
 
     // add mapping for PUT /employees - update existing employee
 
-    @PutMapping("/employees")
-    public Employee updateEmployee(@RequestBody Employee theEmployee) {
+    @PutMapping("/employees/{employeeId}")
+    public Employee updateEmployee(@RequestBody Employee theEmployee, @PathVariable int employeeId) {
 
+        theEmployee.setId(employeeId);
+        System.out.println("updateEmployee called");
         Employee dbEmployee = employeeService.save(theEmployee);
 
         return dbEmployee;
